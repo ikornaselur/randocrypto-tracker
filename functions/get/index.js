@@ -15,13 +15,16 @@ const getStats = user => new Promise((resolve, reject) => {
     if (!err && res.statusCode === 200) {
       const $ = cheerio.load(html);
       // Not optimal way of getting the value but fuck you
-      const valString = $('h2:contains("$")').text().trim().replace('$', '');
-      const value = parseFloat(valString);
+      const valString = $('h2:contains("$")').text().trim();
+      const value = parseFloat(valString.replace('$', ''));
       console.log(`[getStats] got ${value} for ${user}`);
+      const ROI = value / 1000;
       const result = {
         value,
+        url,
         formattedValue: valString,
-        ROI: ((value / 1000) - 1) * 100,
+        ROI,
+        formattedROI: `${((ROI - 1) * 100).toFixed(2)}%`,
       };
       resolve({[user]: result});
     } else {
