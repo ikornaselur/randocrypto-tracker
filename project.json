@@ -1,0 +1,8 @@
+{
+  "name": "crypto-rando",
+  "description": "randocrypto.com api",
+  "memory": 128,
+  "timeout": 5,
+  "role": "arn:aws:iam::265136647422:role/crypto-rando_lambda_function",
+  "environment": {}
+}
