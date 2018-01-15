@@ -9,24 +9,23 @@ const bots = {
 };
 
 const getStats = user => new Promise((resolve, reject) => {
-  console.log(`[getStats] getting ${user}`);
   const url = bots[user];
   request(url, (err, res, html) => {
     if (!err && res.statusCode === 200) {
       const $ = cheerio.load(html);
-      // Not optimal way of getting the value but fuck you
+      // Not optimal way of getting the value but it works
       const valString = $('h2:contains("$")').text().trim();
       const value = parseFloat(valString.replace('$', ''));
-      console.log(`[getStats] got ${value} for ${user}`);
       const ROI = value / 1000;
-      const result = {
-        value,
+
+      resolve({
+        user,
         url,
+        value,
         formattedValue: valString,
         ROI,
         formattedROI: `${((ROI - 1) * 100).toFixed(2)}%`,
-      };
-      resolve({[user]: result});
+      });
     } else {
       reject('Fuck if I know');
     }
@@ -36,8 +35,6 @@ const getStats = user => new Promise((resolve, reject) => {
 exports.handle = (e, ctx, cb) => {
   const promises = Object.keys(bots).map(user => getStats(user));
   Promise.all(promises).then(results => {
-    console.log('[main] time to combine all this shit:');
-    console.log(results);
-    cb(null, results.reduce((a, b) => Object.assign(a, b)));
+    cb(null, results.sort((a, b) => b.value - a.value));
   });
 };
