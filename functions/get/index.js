@@ -2,10 +2,10 @@ const cheerio = require('cheerio');
 const request = require('request');
 
 const bots = {
-  ikornaselur: 'https://www.randocrypto.com/bots/e596dc2840187100cce06370',
-  koddsson: 'https://www.randocrypto.com/bots/257743fd4bec7e656371dd5f',
-  mulningsvelin: 'https://www.randocrypto.com/bots/bb2728581acd3edf2aa428c4',
-  stebbib: 'https://www.randocrypto.com/bots/d77d70c16ed3bc0ea0b3c744',
+  ikornaselur: 'https://www.randocrypto.com/bots/XAY4I8OxbIuk',
+  koddsson: 'https://www.randocrypto.com/bots/spJdjPyRk3I9',
+  mulningsvelin: 'https://www.randocrypto.com/bots/PX7h1K0foMbC',
+  stebbib: 'https://www.randocrypto.com/bots/09jGWxLojg92',
 };
 
 const getStats = user => new Promise((resolve, reject) => {
